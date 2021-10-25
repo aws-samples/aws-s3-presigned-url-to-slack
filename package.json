@@ -1,5 +1,5 @@
 {
-  "name": "aws-ec2-media",
+  "name": "aws-s3-presigned-url-to-slack",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
