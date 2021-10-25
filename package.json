@@ -1,0 +1,8 @@
+{
+  "name": "aws-ec2-media",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "aws-cdk": "1.129.0"
+  }
+}
