@@ -5,6 +5,7 @@ This example shows how to set up your S3 event notification to invoke Lambda and
 ![Architecture](./architectue.png)
 
 ## Prerequisites
+- Make sure you have [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) installed and configured with an aws account you want to use.
 - Ensure you have [nodejs](https://nodejs.org) installed.
 - Ensure you have [direnv](https://direnv.net) installed.
 - Ensure you have [Slack Webhook](https://api.slack.com/messaging/webhooks) set up.
