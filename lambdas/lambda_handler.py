@@ -5,10 +5,18 @@ import urllib.request
 import urllib.parse
 import traceback
 
+from botocore.config import Config
+
 
 SLACK_CHANNEL = os.environ["SLACK_CHANNEL"]
+EXPIRES_IN = os.environ["EXPIRES_IN"]
 
-client = boto3.client("s3")
+conf = Config(
+    signature_version="s3v4",
+    s3={"addressing_style": "path"}
+)
+
+client = boto3.client("s3", config=conf)
 
 
 def post_to_slack(message):
@@ -31,17 +39,17 @@ def main(event):
     for record in event["Records"]:
         bucket_name = record["s3"]["bucket"]["name"]
         object_name = urllib.parse.unquote_plus(record["s3"]["object"]["key"])
-        expiration = 3600 * 24
 
-        print(bucket_name, object_name, expiration)
+        print(bucket_name, object_name, EXPIRES_IN)
 
         response = client.generate_presigned_url(
-            "get_object",
+            ClientMethod="get_object",
             Params={
                 "Bucket": bucket_name,
                 "Key": object_name
             },
-            ExpiresIn=expiration
+            HttpMethod="GET",
+            ExpiresIn=int(EXPIRES_IN)
         )
 
         post_to_slack(response)

@@ -34,13 +34,15 @@ class S3PresignedStack(cdk.Stack):
             code=lambda_.Code.from_asset("lambdas"),
             role=lambda_role,
             timeout=cdk.Duration.seconds(10),
-            tracing=lambda_.Tracing.ACTIVE,
-            insights_version=lambda_.LambdaInsightsVersion.VERSION_1_0_98_0,
         )
 
         lambda_func.add_environment(
             key="SLACK_CHANNEL",
             value=slack_channel
+        )
+        lambda_func.add_environment(
+            key="EXPIRES_IN",
+            value=str(3600 * 24)  # 1 day
         )
 
         sharing_bucket = s3.Bucket(
