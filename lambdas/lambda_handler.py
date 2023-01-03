@@ -21,7 +21,7 @@ client = boto3.client("s3", config=conf)
 
 def post_to_slack(message):
     body = {
-        "Content": message
+        "content": message
     }
 
     data = json.dumps(body).encode("utf8")
