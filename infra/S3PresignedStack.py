@@ -1,18 +1,17 @@
 from aws_cdk import (
-    core as cdk,
+    Stack, Duration,
     aws_s3 as s3,
     aws_s3_notifications as s3n,
     aws_lambda as lambda_,
     aws_iam as iam,
 )
+from constructs import Construct
 
 
-class S3PresignedStack(cdk.Stack):
+class S3PresignedStack(Stack):
 
-    def __init__(self, scope: cdk.Construct, construct_id: str,
-                 bucket_name: str, slack_channel: str,
-                 **kwargs) -> None:
-        super().__init__(scope, construct_id, **kwargs)
+    def __init__(self, scope: Construct, _id: str, bucket_name: str, slack_channel: str, **kwargs) -> None:
+        super().__init__(scope, _id, **kwargs)
 
         lambda_role = iam.Role(
             self,
@@ -33,7 +32,7 @@ class S3PresignedStack(cdk.Stack):
             runtime=lambda_.Runtime.PYTHON_3_9,
             code=lambda_.Code.from_asset("lambdas"),
             role=lambda_role,
-            timeout=cdk.Duration.seconds(10),
+            timeout=Duration.seconds(10),
         )
 
         lambda_func.add_environment(

@@ -19,7 +19,8 @@ export SLACK_CHANNEL=<slack webhook url>
 
 ### install cdk
 ```shell
-npm install
+npm install -g aws-cdk
+cdk --version
 ```
 
 ### create virtualenv
